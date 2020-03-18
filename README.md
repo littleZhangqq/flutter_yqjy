@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # flutter_yqjy
 
 A new Flutter project.
@@ -15,6 +14,3 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
-=======
-# flutter_yqjy
->>>>>>> 28df59a756ecaf961100a0f85df7e10ccad394d8
