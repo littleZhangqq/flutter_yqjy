@@ -246,7 +246,7 @@ class _HomeControllerState extends State<HomeController> {
 
   void getAppInitData(){
     HttpUtil.instance.postData(appInit, {'':''}, RequestLisener(onSucessLisener: (BaseResponse rep){
-      print(rep);
+      print(rep.data);
     },onFailLisener: (String msg){
       print(msg);
     }));
