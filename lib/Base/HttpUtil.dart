@@ -23,27 +23,49 @@ class HttpUtil{
 
   ///初始化
   HttpUtil._internal() {
-    _dio = Dio(BaseOptions(
-    ));
-    _addDioHandle(_dio); //添加请求之前的拦截器
+    // _dio = Dio();
+    // _dio = Dio(BaseOptions(      
+    // ));
+    // var headers = Map<String, String>();
+    // headers['Content-Type'] = 'application/json,text/html,text/json,text/javascript';
+    // _dio.options.headers.addAll(headers);
+    // _addDioHandle(_dio); //添加请求之前的拦截器
   }
 
   void getData(String url,Map param,RequestLisener lisener){
-    request(requestHost+url, param, _get, lisener);
+    if(url.contains('http')){
+      request(url, param, _get, lisener);
+    }else{
+      request(requestHost+url, param, _get, lisener);
+    }
   }
 
   void postData(String url,Map param,RequestLisener lisener){
-    request(requestHost+url ,param, _post, lisener);
+    if (url.contains('http')){
+      request(url ,param, _post, lisener);
+    }else{
+      request(requestHost+url ,param, _post, lisener);
+    }
   }
   
   void request(String url,Map param,String method,RequestLisener lisener) async{
+    param['token'] = '';
+    param['timestamp'] = interval;
+    param['key'] = key;
+    param['sign'] = md5Result(md5Result(interval.toString())+key+keySufix);
     print('请求的URL是:$url');
+    Dio dio = new Dio();
+    
+    dio.options.baseUrl = url;
+    dio.options.connectTimeout = 5000;
+    dio.options.receiveTimeout = 3000;
+    _addDioHandle(dio);
     try {
       Response rep;
       if(method == _get){
-        rep = await _dio.get(url);
+        rep = await dio.get(url);
       }else{
-        rep = await _dio.post(url, data: param, options:null);
+        rep = await dio.post(url, data: param, options:null);
       }
 
       Map map = jsonDecode(rep.toString());
