@@ -26,6 +26,8 @@ dependencies:
   flutter_screenutil: ^1.0.1
   flutter_swiper : ^1.1.6
   dio: ^3.0.9 #latest version
+  amap_location:
+  permission_handler: ^3.2.0
 
 dev_dependencies:
   flutter_test:

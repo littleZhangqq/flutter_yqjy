@@ -1,10 +1,13 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_yqjy/Base/HttpUtil.dart';
 import 'package:flutter_yqjy/Base/RequestSufix.dart';
-
+import 'package:amap_location/amap_location.dart';
+import 'package:permission_handler/permission_handler.dart';//权限
 
 class HomeController extends StatefulWidget {
   @override
@@ -252,9 +255,30 @@ class _HomeControllerState extends State<HomeController> {
     }));
   }
 
+  void getHomeInfo(){
+    
+  }
+
+  void _checkPersmission() async{
+    PermissionStatus permission =
+    await PermissionHandler().checkPermissionStatus(PermissionGroup.location);
+    if(permission == PermissionStatus.granted){
+      AMapLocationClient.onLocationUpate.listen((AMapLocation loc) {
+      if (!mounted) return;
+      setState(() {
+        print(loc);
+      });
+    });
+    AMapLocationClient.startLocation();
+    }else{
+      print('没有权限');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    _checkPersmission();
     getAppInitData();
     return Material(
       color: Colors.white,
