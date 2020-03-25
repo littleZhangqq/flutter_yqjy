@@ -129,7 +129,6 @@ class _HomeControllerState extends State<HomeController> {
             },
             pagination: new SwiperPagination(margin: EdgeInsets.only(bottom: ScreenUtil().setHeight(10))),
             autoplay: true,
-            
           ),
         ),
         Positioned(
