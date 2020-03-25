@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +6,8 @@ import 'package:flutter_yqjy/Base/HttpUtil.dart';
 import 'package:flutter_yqjy/Base/RequestSufix.dart';
 import 'package:amap_location/amap_location.dart';
 import 'package:permission_handler/permission_handler.dart';//权限
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_yqjy/Home/Model/HomeRecord.dart';
 
 class HomeController extends StatefulWidget {
   @override
@@ -15,14 +15,7 @@ class HomeController extends StatefulWidget {
 }
 
 class _HomeControllerState extends State<HomeController> {
-  
-  List<String> itemArray(){
-    var array = [];
-    for (var i = 0; i < 25; i++) {
-      array.add(i.toString());
-    }
-    return array;
-  }
+  var record = HomeRecord();
 
   Widget _listItem(BuildContext context,int index){
     return Container(
@@ -40,7 +33,7 @@ class _HomeControllerState extends State<HomeController> {
             Positioned(
               child: Container(
                 decoration: BoxDecoration(
-                   image: new DecorationImage(image: NetworkImage("https://yiqi-shenyang-test.oss-cn-beijing.aliyuncs.com/uploads/images/20191230/1d2b4b41baddd7cbbd85fab344e03fac.png",),fit: BoxFit.fill),
+                   image: new DecorationImage(image: NetworkImage('https://yiqi-shenyang-test.oss-cn-beijing.aliyuncs.com/uploads/images/20191230/1d2b4b41baddd7cbbd85fab344e03fac.png'),fit: BoxFit.fill),
                    shape: BoxShape.rectangle,
                    borderRadius: BorderRadius.all(Radius.circular(ScreenUtil().setWidth(14))),
                 ),
@@ -53,22 +46,22 @@ class _HomeControllerState extends State<HomeController> {
             Positioned(
               left: ScreenUtil().setWidth(290),
               top: ScreenUtil().setHeight(35),
-              child: Text("这是商家列表的标题" ,style: TextStyle(fontSize: 15,color: Colors.black)),
+              child: Text(record.invites[index].title ,style: TextStyle(fontSize: 15,color: Colors.black)),
             ),
             Positioned(
               left: ScreenUtil().setWidth(290),
               top: ScreenUtil().setHeight(86),
-              child: Text("这是商家列表的小标题" ,style: TextStyle(fontSize: 12,color: Colors.black45)),
+              child: Text(record.invites[index].desc ,style: TextStyle(fontSize: 12,color: Colors.black45)),
             ),
             Positioned(
               left: ScreenUtil().setWidth(290),
               top: ScreenUtil().setHeight(134),
-              child: Text("这是标签" ,style: TextStyle(fontSize: 10,color: Colors.black45)),
+              child: Text(record.invites[index].tags ,style: TextStyle(fontSize: 10,color: Colors.black45)),
             ),
             Positioned(
               left: ScreenUtil().setWidth(290),
               bottom: ScreenUtil().setHeight(40),
-              child: Text("这是底部" ,style: TextStyle(fontSize: 12,color: Colors.black45)),
+              child: Text(record.invites[index].current.toString() ,style: TextStyle(fontSize: 12,color: Colors.black45)),
             ),
           ],
         ),
@@ -78,9 +71,17 @@ class _HomeControllerState extends State<HomeController> {
 
   @override
   initState(){
+    _checkPersmission();
+    Future.delayed(Duration(seconds: 1), (){
+      getAppInitData();
+    });
     super.initState();
   }
 
+  @override
+  dispose(){
+    super.dispose();
+  }
 
   Widget _topBgView(){
     return Stack(
@@ -250,13 +251,29 @@ class _HomeControllerState extends State<HomeController> {
   void getAppInitData(){
     HttpUtil.instance.postData(appInit, {'':''}, RequestLisener(onSucessLisener: (BaseResponse rep){
       print(rep.data);
+      getHomeInfo();
     },onFailLisener: (String msg){
       print(msg);
     }));
   }
 
+  void getCouponlistData(){
+
+  }
+
   void getHomeInfo(){
-    
+    Map param = Map();
+    param['city'] = ''; 
+    param['position'] = '';
+    HttpUtil.instance.postData(homeInfo, param, RequestLisener(onSucessLisener: (BaseResponse rep){
+      record = HomeRecord.fromJson(rep.data);
+      print('数组个数'+record.invites.length.toString());
+      print('首页数据请求成功');
+      setState(() {
+      });
+    }, onFailLisener: (String msg){
+      Fluttertoast.showToast(msg: msg);
+    }));
   }
 
   void _checkPersmission() async{
@@ -265,24 +282,24 @@ class _HomeControllerState extends State<HomeController> {
     if(permission == PermissionStatus.granted){
       AMapLocationClient.onLocationUpate.listen((AMapLocation loc) {
       if (!mounted) return;
+      print(loc);
       setState(() {
-        print(loc);
       });
-    });
-    AMapLocationClient.startLocation();
+     });
+      AMapLocationClient.startLocation();
     }else{
       print('没有权限');
+      Fluttertoast.showToast(msg: '没有权限');
+      // await PermissionHandler().openAppSettings();//打开应用设置
     }
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-    _checkPersmission();
-    getAppInitData();
     return Material(
       color: Colors.white,
-      child: CustomScrollView(
+      child: record != null ? CustomScrollView(
         slivers: <Widget>[
           SliverToBoxAdapter(
             child: _topBgView(),
@@ -292,10 +309,13 @@ class _HomeControllerState extends State<HomeController> {
             delegate: SliverChildBuilderDelegate((BuildContext context, int index){
               return _listItem(context, index);
             },
-            childCount: 20,
+            childCount: record.invites == null ? 0 : record.invites.length,
             ),
           ),
         ],
+      )
+      : Center(
+        child: CircularProgressIndicator(),
       ),
     );
 

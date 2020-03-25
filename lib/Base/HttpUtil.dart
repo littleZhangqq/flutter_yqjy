@@ -10,7 +10,6 @@ typedef failBlock = void Function(int code,String msg);
 class HttpUtil{
   static const _post = 'post';
   static const _get = 'get';
-  Dio _dio;
   static HttpUtil _instance;
   static HttpUtil get instance => _getInstance();
   factory HttpUtil() => _getInstance();

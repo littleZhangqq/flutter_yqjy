@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_yqjy/Base/HttpUtil.dart';
-import 'package:flutter_yqjy/Base/RequestSufix.dart';
 import 'package:flutter_yqjy/Base/Util.dart';
 
 class GasController extends StatefulWidget {

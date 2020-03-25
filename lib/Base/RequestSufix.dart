@@ -15,5 +15,7 @@ String md5Result(String data){
 
 // String requestHost = 'https://api.lnyqcm.com/v2/';
 String requestHost = 'https://www.yiqijiayou00598.com/v2/';
+// String imageHomst = 'https://yiqi-shenyang.oss-cn-beijing.aliyuncs.com';
+String imageHost = 'https://yiqi-shenyang-test.oss-cn-beijing.aliyuncs.com/';
 String appInit = 'index/initV2';
 String homeInfo = 'index/info';
