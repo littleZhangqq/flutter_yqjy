@@ -13,9 +13,16 @@ String md5Result(String data){
   return hex.encode(digest.bytes);
 }
 
+//域名前缀
 // String requestHost = 'https://api.lnyqcm.com/v2/';
 String requestHost = 'https://www.yiqijiayou00598.com/v2/';
 // String imageHomst = 'https://yiqi-shenyang.oss-cn-beijing.aliyuncs.com';
 String imageHost = 'https://yiqi-shenyang-test.oss-cn-beijing.aliyuncs.com/';
+
+//首页接口
 String appInit = 'index/initV2';
 String homeInfo = 'index/info';
+
+//油站
+//易兑
+String exchange = 'exchange/exchange_list';
