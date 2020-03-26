@@ -26,9 +26,9 @@ class _ExchangeControllerState extends State<ExchangeController> {
             expandedHeight: H(375),
             flexibleSpace: FlexibleSpaceBar(
               background: Swiper(
-                itemCount: record.banners.length,
+                itemCount: record == null ? 1 : record.banners.length,
                 itemBuilder: (BuildContext context,int index) {
-                  return new Image.network(imageHost+ record.banners[index].path ,fit:BoxFit.fill);
+                  return new Image.network(record == null ? 'http://t8.baidu.com/it/u=3571592872,3353494284&fm=79&app=86&f=JPEG?w=1200&h=1290' : imageHost + record.banners[index].path ,fit:BoxFit.fill);
                 },
                 pagination: SwiperPagination(margin: EdgeInsets.only(bottom: H(10))),
                 autoplay: true,
@@ -39,7 +39,7 @@ class _ExchangeControllerState extends State<ExchangeController> {
             crossAxisCount: 2,
             crossAxisSpacing: 0,
             mainAxisSpacing: 10,
-            childAspectRatio: 0.8,
+            childAspectRatio: 0.7,
             children: record == null ? list.map((e) => getItemContainer(e)).toList() : record.products.map((pro) => _item(pro)).toList(),
           ),
           
@@ -112,15 +112,15 @@ class _ExchangeControllerState extends State<ExchangeController> {
             ),
             Positioned(
               top: H(190),
-              left:0,
+              left: 0,
               right: 0,
-              child: Text(item.name,textAlign: TextAlign.center, style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Color.fromRGBO(102, 102, 102, 1),),),
-            ),
-            Positioned(
-              top: H(210),
-              left:0,
-              right:0,
-              child: Text('${item.coin}易币', textAlign: TextAlign.center,style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: Colors.red,)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(item.name,textAlign: TextAlign.center, style: TextStyle(fontSize: 18,color: Color.fromRGBO(102, 102, 102, 1),),),
+                  Text('${item.coin}易币', textAlign: TextAlign.center,style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: Colors.red,)),
+                ],
+              ),
             ),
           ],
         ),
