@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_yqjy/Base/HttpUtil.dart';
 import 'package:flutter_yqjy/Base/RequestSufix.dart';
@@ -22,17 +23,38 @@ class _ExchangeControllerState extends State<ExchangeController> {
       child: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            title: Text('我的易币'),
-            expandedHeight: H(375),
+            title: Text('我的易币：\n${record == null ? 0 : record.coin}'),
+            centerTitle: false,
+            expandedHeight: W(375),
             flexibleSpace: FlexibleSpaceBar(
-              background: Swiper(
-                itemCount: record == null ? 1 : record.banners.length,
-                itemBuilder: (BuildContext context,int index) {
-                  return new Image.network(record == null ? 'http://t8.baidu.com/it/u=3571592872,3353494284&fm=79&app=86&f=JPEG?w=1200&h=1290' : imageHost + record.banners[index].path ,fit:BoxFit.fill);
-                },
-                pagination: SwiperPagination(margin: EdgeInsets.only(bottom: H(10))),
-                autoplay: true,
-              ),
+                background: Stack(
+                  children: <Widget>[
+                     Positioned(
+                      child:Swiper(
+                      itemCount: record == null ? 1 : record.banners.length,
+                      itemBuilder: (BuildContext context,int index) {
+                          return new Image.network(record == null ? 'https://yiqi-shenyang.oss-cn-beijing.aliyuncs.com/uploads/images/20200321/bannweqietu%403x.png' : imageHost + record.banners[index].path ,fit:BoxFit.fill);
+                     },
+                      pagination: SwiperPagination(margin: EdgeInsets.only(bottom: H(10))),
+                      autoplay: true,
+                     ),),
+                     Positioned(
+                       width: W(100),
+                       height: 40,
+                       top: 30,
+                       right: 20,
+                       child: FloatingActionButton.extended(
+                         onPressed: ()=>print('ppppp'),
+                         backgroundColor: Colors.black45,
+                         elevation: 1,
+                         shape: StadiumBorder(),
+                         icon: Image.asset('./images/Home/exchange.png'),
+                         label: Text('兑换记录', style: TextStyle(color: Colors.white,fontSize: 14,),
+                       ),
+                     ),
+                     )
+                  ],
+                ),
             ),
           ),
           SliverGrid.count(
