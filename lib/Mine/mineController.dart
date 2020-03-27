@@ -9,41 +9,6 @@ class MineController extends StatefulWidget {
 }
 
 class _MineControllerState extends State<MineController> {
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            title: Text('我的', style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold)),
-            centerTitle: false,
-            expandedHeight: H(250),
-            flexibleSpace: FlexibleSpaceBar(
-              background: Stack(
-                children: <Widget>[
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    height: H(155),
-                    child: Image.asset('./images/Home/top_bg.png',fit: BoxFit.fill,),
-                  ),
-                  _personBasicInfo(),
-                ],
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-
-          ),
-          _cetifySliver(),
-          _infoSliver(),
-          _setSliver(),
-        ],
-      ),
-    );
-  }
-
   Widget _cetifySliver(){
     return SliverToBoxAdapter(
 
@@ -154,5 +119,40 @@ class _MineControllerState extends State<MineController> {
          ],
        ),
      );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            title: Text('我的', style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold)),
+            centerTitle: false,
+            expandedHeight: H(250),
+            flexibleSpace: FlexibleSpaceBar(
+              background: Stack(
+                children: <Widget>[
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    height: H(155),
+                    child: Image.asset('./images/Home/top_bg.png',fit: BoxFit.fill,),
+                  ),
+                  _personBasicInfo(),
+                ],
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+
+          ),
+          _cetifySliver(),
+          _infoSliver(),
+          _setSliver(),
+        ],
+      ),
+    );
   }
 }
