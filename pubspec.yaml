@@ -52,6 +52,9 @@ flutter:
   assets:
    - images/icon.png
    - images/Home/
+   - images/Gas/
+   - images/Mine/
+   - images/Exchange/
    - images/select_home.png
    - images/select_jifen.png
    - images/select_mine.png
@@ -61,7 +64,7 @@ flutter:
    - images/unselect_jifen.png
    - images/unselect_mine.png
    - images/unselect_oil.png
-
+  
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

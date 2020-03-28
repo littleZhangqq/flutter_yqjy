@@ -12,6 +12,14 @@ double H(double height){
     return height *((ScreenUtil.screenWidth/ScreenUtil.pixelRatio)/375.0);
   }
 
+double screenWidth(){
+  return ScreenUtil.screenWidth / ScreenUtil.pixelRatio;
+}
+
+double screenHeight(){
+  return ScreenUtil.screenHeight / ScreenUtil.pixelRatio;
+}
+
 Color color153(){
   return Color.fromRGBO(153, 153, 153, 1);
 }
