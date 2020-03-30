@@ -5,7 +5,6 @@ class MineController extends StatefulWidget {
   @override
   _MineControllerState createState() => _MineControllerState();
 }
-
 class _MineControllerState extends State<MineController> {
   Widget _cetifySliver(){
     return SliverToBoxAdapter(
@@ -143,6 +142,16 @@ class _MineControllerState extends State<MineController> {
         ],
       ),
       ),
+    );
+  }
+
+  Widget _loginliver(){
+    return SliverToBoxAdapter(
+      child: FlatButton(
+          onPressed: ()=> print('登录'), 
+          child: Text('去登录'),
+          color: color235(),
+       ),
     );
   }
 
@@ -368,6 +377,7 @@ class _MineControllerState extends State<MineController> {
           _cetifySliver(),
           _infoSliver(),
           _setSliver(),
+          _loginliver(),
         ],
       ),
     );
