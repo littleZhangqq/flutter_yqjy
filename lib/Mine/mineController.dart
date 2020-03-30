@@ -15,32 +15,32 @@ class _MineControllerState extends State<MineController> {
         child: Stack(
           children: <Widget>[
           Positioned(
-            left: 9,
-            right: 9,
+            left: W(9),
+            right: W(9),
             child: Image.asset('./images/Mine/white_bg2x.png', fit: BoxFit.fitWidth,),
           ),
           Positioned(
             left: 0,
             right: 0,
-            top: 0,
-            height: H(95),
+            top: 3,
+            bottom: 2,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  height: H(47.5),
+                  height: H(45),
                   width: screenWidth()-W(36),
                   child: FlatButton(
-                  onPressed: ()=> print('点击认证按钮'), 
-                  child: _sliverDetail(Icon(Icons.perm_contact_calendar,color: color102(),), '车主认证'),
+                  onPressed: ()=> print('车主认证'), 
+                  child: _sliverDetail(Icon(Icons.perm_contact_calendar,color: color102(),), '车主认证',true),
                 ),
                 ),
                 Container(
-                  height: H(47.5),
+                  height: H(45),
                   width: screenWidth()-W(36),
                   child: FlatButton(
-                  onPressed: ()=> print('点击认证按钮'), 
-                  child: _sliverDetail(Icon(Icons.perm_contact_calendar,color: color102(),), '车主认证'),
+                  onPressed: ()=> print('地址管理'), 
+                  child: _sliverDetail(Icon(Icons.pin_drop,color: color102(),), '地址管理',false),
                 ),
                 ),
                 
@@ -57,43 +57,46 @@ class _MineControllerState extends State<MineController> {
     return SliverToBoxAdapter(
       child: Container(
         width: W(355),
-        height: H(145),
+        height: H(140),
         child: Stack(
           children: <Widget>[
           Positioned(
-            left: 9,
-            right: 9,
-            top: 5,
+            left: W(9),
+            right: W(9),
+            top: 0,
+            bottom: 0,
             child: Image.asset('./images/Mine/white_bg3x.png', fit: BoxFit.fitWidth,),
           ),
           Positioned(
             left: 0,
             right: 0,
+            top: 3,
+            bottom: 2,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  height: H(47.5),
+                  height: H(45),
                   width: screenWidth()-W(36),
                   child: FlatButton(
-                  onPressed: ()=> print('点击认证按钮'), 
-                  child: _sliverDetail(Icon(Icons.perm_contact_calendar,color: color102(),), '车主认证'),
+                  onPressed: ()=> print('我的任务'), 
+                  child: _sliverDetail(Icon(Icons.touch_app,color: color102(),), '我的任务',true),
                 ),
                 ),
                 Container(
-                  height: H(47.5),
+                  height: H(45),
                   width: screenWidth()-W(36),
                   child: FlatButton(
-                  onPressed: ()=> print('点击认证按钮'), 
-                  child: _sliverDetail(Icon(Icons.perm_contact_calendar,color: color102(),), '车主认证'),
+                  onPressed: ()=> print('优惠券'), 
+                  child: _sliverDetail(Icon(Icons.playlist_add_check,color: color102(),), '优惠券',true),
                 ),
                 ),
                 Container(
-                  height: H(47.5),
+                  height: H(45),
                   width: screenWidth()-W(36),
                   child: FlatButton(
-                  onPressed: ()=> print('点击认证按钮'), 
-                  child: _sliverDetail(Icon(Icons.perm_contact_calendar,color: color102(),), '车主认证'),
+                  onPressed: ()=> print('联系我们'), 
+                  child: _sliverDetail(Icon(Icons.phone_forwarded,color: color102(),), '联系我们',false),
                 ),
                 ),
               ],
@@ -109,26 +112,29 @@ class _MineControllerState extends State<MineController> {
     return SliverToBoxAdapter(
       child: Container(
         width: W(355),
-        height: H(55),
+        height: H(50),
         child: Stack(
           children: <Widget>[
           Positioned(
-            left: 9,
-            right: 9,
-            top: 10,
+            left: W(9),
+            right: W(9),
+            top: 0,
+            bottom: 0,
             child: Image.asset('./images/Mine/white_bg1x.png', fit: BoxFit.fitWidth,),
           ),
           Positioned(
             left: 0,
             right: 0,
+            top: 3,
+            bottom: 2,
             child: Column(
               children: <Widget>[
                 Container(
-                  height: H(47.5),
+                  height: H(45),
                   width: screenWidth()-W(36),
                   child: FlatButton(
-                  onPressed: ()=> print('点击认证按钮'), 
-                  child: _sliverDetail(Icon(Icons.perm_contact_calendar,color: color102(),), '车主认证'),
+                  onPressed: ()=> print('设置'), 
+                  child: _sliverDetail(Icon(Icons.settings,color: color102(),), '设置',false),
                 ),
                 ),
               ],
@@ -140,27 +146,34 @@ class _MineControllerState extends State<MineController> {
     );
   }
 
-  Stack _sliverDetail(Icon img,String title){
+  Stack _sliverDetail(Icon img,String title,bool showline){
     return Stack(
         children: <Widget>[
           Positioned(
-            left: W(10),
-            top: H(14),
+            left: 0,
+            top: W(12),
             width: W(15),
             height: W(15),
             child: img,
         ),
         Positioned(
-          top: H(14),
-          left: W(35),
+          top: W(12),
+          left: W(30),
           child: Text(title,style: TextStyle(fontSize: 15,color: color153()),),
         ),
         Positioned(
-           top: H(14),
-           right: W(25),
-           height: W(10),
-           width: W(10),
-           child: Icon(Icons.arrow_forward_ios,color: color153(),),
+           top: W(12),
+           right: W(5),
+           child: Icon(Icons.arrow_forward_ios,color: colorRGB(200, 200, 200),),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          top: H(44.5),
+          height: H(0.5),
+          child: Container(
+            color: showline == true ? colorRGB(215, 215, 215) : colorClear(),
+          ),
         ),
         ],
       );
@@ -216,14 +229,23 @@ class _MineControllerState extends State<MineController> {
              ),
            ),
            Positioned(
-             top: H(23),
-             right: W(27),
+             top: H(27),
+             right: W(37),
+             width: W(20),
+             height: W(20),
+             child: Container(
+               child: Image.asset('./images/Mine/mine_qrcode.png',),
+             ),
+           ),
+           Positioned(
+             top: H(20),
+             right: W(37),
              width: W(30),
              height: W(30),
              child: FlatButton(
-               onPressed: ()=>print('点击任务二维码'), 
-               child: Image.asset('./images/Mine/mine_qrcode.png'),
-               ),
+               onPressed: ()=> print('二维码'),
+               child: null,
+             ),
            ),
            Positioned(
              left: W(102),

@@ -28,6 +28,10 @@ Color colorRGB(int r,int g,int b){
   return Color.fromRGBO(r, g, b, 1);
 }
 
+Color colorClear(){
+  return Color.fromRGBO(0, 0, 0, 0);
+}
+
 Color color235(){
   return Color.fromRGBO(235, 235, 235, 1);
 } 
