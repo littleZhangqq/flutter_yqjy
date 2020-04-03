@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_yqjy/Base/Record.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// 设置宽度 按照设计图尺寸是iPhone6的宽度为固定参照，当前控件在设计图所占的宽度比例，乘以当前
 double W(double width){
@@ -42,4 +47,56 @@ Color color102(){
 
 Color color51(){
   return Color.fromRGBO(51, 51, 51, 1);
+}
+
+void saveValue(Object value,String key) async{
+  var pref = await SharedPreferences.getInstance();
+  if(value is int){
+    pref.setInt(key, value);
+  }else if(value is String){
+    pref.setString(key, value.toString());
+  }else if(value is double){
+    pref.setDouble(key, value.toDouble());
+  }else if(value is bool){
+    pref.setBool(key, value);
+  }else if(key.contains('Record')){
+    pref.setString(key, jsonEncode(value.toString()));
+  }else{
+    print('类型不对');
+  }
+}
+
+Object getValue(String key) async{
+  var pref = await SharedPreferences.getInstance();
+  var result;
+  if(pref.getBool(key) == null){
+    if(pref.getDouble(key) == null){
+      if(pref.getInt(key) == null){
+        if(pref.getString(key) == null){
+          print('null');
+        }else{
+          result = pref.getString(key);
+        }
+      }else{
+        result = pref.getInt(key);
+      }
+    }else{
+      result = pref.getDouble(key);
+    }
+  }else{
+    result = pref.getBool(key);
+  }
+  return result;
+}
+
+void saveObject(Object value,String key) async{
+  var pref = await SharedPreferences.getInstance();
+  pref.setString(key, value.toString());
+}
+
+Future<UserRecord> getUserData(String key) async{
+  var pref = await SharedPreferences.getInstance();
+  Map result = jsonDecode(pref.getString(key));
+  UserRecord record = UserRecord.fromJson(result);
+  return record;
 }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_yqjy/Base/Util.dart';
+import 'package:flutter_yqjy/Login/LoginController.dart';
 
 class MineController extends StatefulWidget {
   @override
   _MineControllerState createState() => _MineControllerState();
 }
 class _MineControllerState extends State<MineController> {
+  
   Widget _cetifySliver(){
     return SliverToBoxAdapter(
       child: Container(
@@ -148,7 +150,12 @@ class _MineControllerState extends State<MineController> {
   Widget _loginliver(){
     return SliverToBoxAdapter(
       child: FlatButton(
-          onPressed: ()=> print('登录'), 
+          onPressed: ()=> {
+            print('登录'),
+            Navigator.push(context, 
+            new MaterialPageRoute(builder: (context)=>new LoginController()),
+            ),
+          }, 
           child: Text('去登录'),
           color: color235(),
        ),

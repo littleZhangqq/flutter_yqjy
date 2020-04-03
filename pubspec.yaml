@@ -31,6 +31,7 @@ dependencies:
   fluttertoast :
   flutter_section_table_view: ^1.0.5
   cached_network_image:
+  shared_preferences:
 
 dev_dependencies: 
   flutter_test:
@@ -54,6 +55,7 @@ flutter:
    - images/Home/
    - images/Gas/
    - images/Mine/
+   - images/Login/
    - images/Exchange/
    - images/select_home.png
    - images/select_jifen.png

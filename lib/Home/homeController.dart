@@ -251,8 +251,8 @@ class _HomeControllerState extends State<HomeController> {
     HttpUtil.instance.postData(appInit, {'':''}, RequestLisener(onSucessLisener: (BaseResponse rep){
       print(rep.data);
       getHomeInfo();
-    },onFailLisener: (String msg){
-      print(msg);
+    },onFailLisener: (BaseResponse rep){
+      print(rep.msg);
     }));
   }
 
@@ -270,8 +270,8 @@ class _HomeControllerState extends State<HomeController> {
       print('首页数据请求成功');
       setState(() {
       });
-    }, onFailLisener: (String msg){
-      Fluttertoast.showToast(msg: msg);
+    }, onFailLisener: (BaseResponse rep){
+      Fluttertoast.showToast(msg: rep.msg);
     }));
   }
 

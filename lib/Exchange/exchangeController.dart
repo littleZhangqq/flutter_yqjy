@@ -87,8 +87,8 @@ class _ExchangeControllerState extends State<ExchangeController> {
     HttpUtil.instance.postData(exchange, {'tags':''}, RequestLisener(onSucessLisener: (BaseResponse rep){
       record = ExchangeRecord.fromJson(rep.data);
       setState(() {});
-    }, onFailLisener: (String msg){
-      Fluttertoast.showToast(msg: msg);
+    }, onFailLisener: (BaseResponse rep){
+      Fluttertoast.showToast(msg: rep.msg);
     }));
    }
 

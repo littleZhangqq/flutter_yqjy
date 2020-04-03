@@ -105,7 +105,7 @@ class RequestLisener<T>{
   RequestLisener({@required this.onSucessLisener,@required this.onFailLisener});
 
   final ValueChanged<BaseResponse> onSucessLisener;
-  final ValueChanged<String> onFailLisener;
+  final ValueChanged<BaseResponse> onFailLisener;
 
   void onSucess(BaseResponse rep){
     if(onSucessLisener != null){
@@ -115,7 +115,7 @@ class RequestLisener<T>{
 
   void onError(BaseResponse rep){
     if(onFailLisener != null){
-      onFailLisener(rep.msg);
+      onFailLisener(rep);
     }
   }
 }

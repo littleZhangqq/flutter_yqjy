@@ -20,9 +20,14 @@ String requestHost = 'https://www.yiqijiayou00598.com/v2/';
 String imageHost = 'https://yiqi-shenyang-test.oss-cn-beijing.aliyuncs.com/';
 
 //首页接口
-String appInit = 'index/initV2';
-String homeInfo = 'index/info';
+String appInit = 'index/initV2';//APP启动广告等
+String homeInfo = 'index/info';//首页数据
 
 //油站
 //易兑
-String exchange = 'exchange/exchange_list';
+String exchange = 'exchange/exchange_list';//易兑商品列表
+
+//登录
+String loginWithPwd = 'login/login_pw';//密码登录
+String loginWithCode = 'login/login_code';//验证码登录
+String personInfo = 'login/is_login';//个人信息
