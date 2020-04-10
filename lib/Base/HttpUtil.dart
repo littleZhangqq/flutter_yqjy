@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_yqjy/Base/RequestSufix.dart';
+import 'package:flutter_yqjy/Base/Util.dart';
 
 
 typedef sucBlock = void Function(String json);
@@ -48,7 +49,8 @@ class HttpUtil{
   }
   
   void request(String url,Map param,String method,RequestLisener lisener) async{
-    param['token'] = '';
+    String token = getValue('token').toString();
+    param['token'] = token;
     param['timestamp'] = interval;
     param['key'] = key;
     param['sign'] = md5Result(md5Result(interval.toString())+key+keySufix);

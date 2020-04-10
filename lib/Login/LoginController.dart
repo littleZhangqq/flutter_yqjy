@@ -20,6 +20,7 @@ class _LoginControllerState extends State<LoginController> {
   bool loginTypePassWord;
   @override
   void initState() {
+    loginTypePassWord = true;
     _tap = TapGestureRecognizer();
     _tap.onTap = (){
       print('点击协议');
@@ -200,11 +201,13 @@ class _LoginControllerState extends State<LoginController> {
   }
 
   void loginAction(){
-    checkInputValue();
+    if(checkInputValue() == false){
+      return;
+    }
     Map param = Map();
     param['tel'] = userName;
     param['login_type'] = 'app';
-    if(loginTypePassWord){
+    if(loginTypePassWord == true){
       param['password'] = userPassWord;
     }else{
       param['code'] = verifyCode;

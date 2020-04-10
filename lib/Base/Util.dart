@@ -74,6 +74,7 @@ Object getValue(String key) async{
       if(pref.getInt(key) == null){
         if(pref.getString(key) == null){
           print('null');
+          result = '';
         }else{
           result = pref.getString(key);
         }
