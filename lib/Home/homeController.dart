@@ -260,16 +260,16 @@ class _HomeControllerState extends State<HomeController> {
 
   }
 
-  void getHomeInfo(){
+  void getHomeInfo() async{
     Map param = Map();
     param['city'] = ''; 
     param['position'] = '';
-    HttpUtil.instance.postData(homeInfo, param, RequestLisener(onSucessLisener: (BaseResponse rep){
+    HttpUtil.instance.postData(homeInfo, param, RequestLisener(onSucessLisener: (BaseResponse rep){      
+      setState(() {
+      });
       record = HomeRecord.fromJson(rep.data);
       print('数组个数'+record.invites.length.toString());
       print('首页数据请求成功');
-      setState(() {
-      });
     }, onFailLisener: (BaseResponse rep){
       Fluttertoast.showToast(msg: rep.msg);
     }));

@@ -2,8 +2,8 @@ class HomeRecord {
   List<Banners> banners;
   List<News> news;
   String avatar;
-  String oilFee;
-  String lastTimeFee;
+  int oilFee;
+  int lastTimeFee;
   int islogin;
   String countEarn;
   String taskEarn;

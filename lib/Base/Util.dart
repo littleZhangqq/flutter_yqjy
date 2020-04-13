@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -90,14 +88,15 @@ Object getValue(String key) async{
   return result;
 }
 
-void saveObject(Object value,String key) async{
+void saveObject(Object value) async{
   var pref = await SharedPreferences.getInstance();
-  pref.setString(key, value.toString());
+  pref.setString('userRecord', jsonEncode(value).toString());
 }
 
-Future<UserRecord> getUserData(String key) async{
+Future<UserRecord> getUserData() async{
   var pref = await SharedPreferences.getInstance();
-  Map result = jsonDecode(pref.getString(key));
+  String json = pref.getString('userRecord');
+  Map<String, dynamic> result = jsonDecode(json);
   UserRecord record = UserRecord.fromJson(result);
   return record;
 }

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_yqjy/Base/RequestSufix.dart';
-import 'package:flutter_yqjy/Base/Util.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 typedef sucBlock = void Function(String json);
@@ -49,7 +49,11 @@ class HttpUtil{
   }
   
   void request(String url,Map param,String method,RequestLisener lisener) async{
-    String token = getValue('token').toString();
+    if(param == null){
+      param = Map();
+    }
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String token = pref.getString('token');
     param['token'] = token;
     param['timestamp'] = interval;
     param['key'] = key;

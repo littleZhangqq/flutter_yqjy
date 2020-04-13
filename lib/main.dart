@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'Base/tabbarController.dart';
 import 'package:flutter/services.dart';
 import 'package:amap_location/amap_location.dart';
@@ -13,9 +14,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AMapLocationClient.setApiKey('cf2599e32f7febca61963bd952aa1c72');
-    return MaterialApp(
-      home: TabbarController(),
-      // theme: ThemeData.dark(),
+    return FlutterEasyLoading(
+      child: MaterialApp(
+        home: TabbarController(),
+      ),
     );
   }
 }
