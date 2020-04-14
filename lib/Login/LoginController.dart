@@ -2,10 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_yqjy/Base/HttpUtil.dart';
-import 'package:flutter_yqjy/Base/Record.dart';
-import 'package:flutter_yqjy/Base/RequestSufix.dart';
-import 'package:flutter_yqjy/Base/Util.dart';
+import 'package:flutter_yqjy/Base/httpUtil.dart';
+import 'package:flutter_yqjy/Base/util.dart';
+import 'package:flutter_yqjy/Base/record.dart';
+import 'package:flutter_yqjy/Base/requestSufix.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -216,13 +216,17 @@ class _LoginControllerState extends State<LoginController> {
     }
     EasyLoading.show(status: '登录中');
     HttpUtil.instance.postData(loginTypePassWord ? loginWithPwd : loginWithCode, param, RequestLisener(onSucessLisener: (BaseResponse rep) async{
+      EasyLoading.dismiss();
+      EasyLoading.show(status: '登录中');
       String token = rep.data['token'];
       SharedPreferences pref = await SharedPreferences.getInstance();
       pref.remove('token');
       saveValue(token, 'token');
       loadPersonInfo();
+
     }, onFailLisener: (BaseResponse rep){
       Fluttertoast.showToast(msg: rep.msg);
+      EasyLoading.dismiss();
     }));
   }
 
@@ -236,10 +240,10 @@ class _LoginControllerState extends State<LoginController> {
         Navigator.pop(context);
       });
       person = await getUserData();
-      print(person.userTel);
       EasyLoading.dismiss();
     },onFailLisener: (BaseResponse rep){
       Fluttertoast.showToast(msg: rep.msg,gravity: ToastGravity.CENTER);
+      EasyLoading.dismiss();
     }));
   }
 

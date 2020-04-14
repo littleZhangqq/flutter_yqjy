@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_yqjy/Base/Record.dart';
+import 'package:flutter_yqjy/Base/record.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// 设置宽度 按照设计图尺寸是iPhone6的宽度为固定参照，当前控件在设计图所占的宽度比例，乘以当前

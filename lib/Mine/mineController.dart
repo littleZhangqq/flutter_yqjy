@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_yqjy/Base/Util.dart';
-import 'package:flutter_yqjy/Login/LoginController.dart';
+import 'package:flutter_yqjy/Base/util.dart';
+import 'package:flutter_yqjy/Base/record.dart';
+import 'package:flutter_yqjy/Login/loginController.dart';
 
 class MineController extends StatefulWidget {
   @override
@@ -388,5 +389,16 @@ class _MineControllerState extends State<MineController> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
+
+  UserRecord record;
+  void loadPersonInfo() async{
+    
   }
 }

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:flutter_yqjy/Base/HttpUtil.dart';
-import 'package:flutter_yqjy/Base/RequestSufix.dart';
+import 'package:flutter_yqjy/Base/httpUtil.dart';
+import 'package:flutter_yqjy/Base/requestSufix.dart';
 import 'package:amap_location/amap_location.dart';
+import 'package:flutter_yqjy/Base/util.dart';
 import 'package:permission_handler/permission_handler.dart';//权限
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_yqjy/Home/Model/HomeRecord.dart';
+import 'package:flutter_yqjy/Home/Model/homeRecord.dart';
 
 class HomeController extends StatefulWidget {
   @override
@@ -38,30 +39,31 @@ class _HomeControllerState extends State<HomeController> {
                    borderRadius: BorderRadius.all(Radius.circular(ScreenUtil().setWidth(14))),
                 ),
               ),
-              left: ScreenUtil().setWidth(54),
-              top: ScreenUtil().setHeight(40),
-              bottom: ScreenUtil().setHeight(40),
-              width: ScreenUtil().setHeight(185),
+              left: W(27),
+              top:  H(20),
+              bottom: H(20),
+              width: W(60),
             ),
             Positioned(
-              left: ScreenUtil().setWidth(290),
-              top: ScreenUtil().setHeight(35),
+              left: W(100),
+              top: H(12),
               child: Text(record.invites[index].title ,style: TextStyle(fontSize: 15,color: Colors.black)),
             ),
             Positioned(
-              left: ScreenUtil().setWidth(290),
-              top: ScreenUtil().setHeight(86),
-              child: Text(record.invites[index].desc ,style: TextStyle(fontSize: 12,color: Colors.black45)),
+              left: W(100),
+              right: W(20),
+              top: H(31),
+              child: Text(record.invites[index].desc ,style: TextStyle(fontSize: 12,color: Colors.black45 ,),maxLines: 1, overflow: TextOverflow.visible,),
             ),
             Positioned(
-              left: ScreenUtil().setWidth(290),
-              top: ScreenUtil().setHeight(134),
+              left: W(100),
+              top: H(50),
               child: Text(record.invites[index].tags ,style: TextStyle(fontSize: 10,color: Colors.black45)),
             ),
             Positioned(
-              left: ScreenUtil().setWidth(290),
-              bottom: ScreenUtil().setHeight(40),
-              child: Text(record.invites[index].current.toString() ,style: TextStyle(fontSize: 12,color: Colors.black45)),
+              left: W(100),
+              bottom: H(15),
+              child: Text('任务完成度：'+record.invites[index].current.toString() ,style: TextStyle(fontSize: 12,color: Colors.black45)),
             ),
           ],
         ),
@@ -88,39 +90,39 @@ class _HomeControllerState extends State<HomeController> {
       children: <Widget>[
         Container(
           width: ScreenUtil.screenWidth,
-          height: ScreenUtil().setHeight(930),
+          height: H(465),
           color: Colors.white,
         ),
         Positioned(
           left: 0,
           right: 0,
-          top: 0,
-          height: ScreenUtil().setHeight(476),
-          child: new Image.asset("./images/Home/top_bg.png",fit: BoxFit.fitWidth,),
+          top: -1,
+          height: H(238),
+          child: new Image.asset("./images/Home/top_bg.png",fit: BoxFit.fill),
         ),
         Positioned(
-          top: ScreenUtil().setHeight(400),
-          left: ScreenUtil().setWidth(132),
-          right: ScreenUtil().setWidth(141),
-          height: ScreenUtil().setHeight(114),
+          top: H(190),
+          left: W(50),
+          right: W(50),
+          height: H(60),
           child: FlatButton(
             onPressed: ()=> print("object"),
-            child: Image.asset("./images/Home/oil_onekey.png",fit: BoxFit.fitWidth,),
+            child: Image.asset("./images/Home/oil_onekey.png",fit: BoxFit.fill,),
             
           ),
         ),
         Positioned(
-          left: ScreenUtil().setWidth(38),
-          height: ScreenUtil().setWidth(60),
-          width: ScreenUtil().setWidth(400),
-          top: ScreenUtil().setHeight(528),
+          left: W(19),
+          height: H(30),
+          width: W(200),
+          top: H(265),
           child: Text("这里是1滚动信息发布",style: TextStyle(fontSize: 15,color: Colors.black87),),
         ),
         Positioned(
           left: 0,
           right: 0,
-          top: ScreenUtil().setHeight(580),
-          height: ScreenUtil().setHeight(247),
+          top: H(290),
+          height: H(124),
           child: Swiper(
             // color: Colors.yellowAccent,
             itemCount: 3,
@@ -132,35 +134,34 @@ class _HomeControllerState extends State<HomeController> {
           ),
         ),
         Positioned(
-          left: ScreenUtil().setWidth(38),
-          height: ScreenUtil().setHeight(30),
-          top: ScreenUtil().setHeight(855),
+          left: W(19),
+          height: H(15),
+          top: H(425),
           child: Image.asset("./images/Home/task_icon.png" ,fit: BoxFit.fill,),
         ),
         Positioned(
           child: Container(
-            width: ScreenUtil().setHeight(80),
-            height: ScreenUtil().setHeight(80),
+            width: W(40),
+            height: W(40),
             decoration: BoxDecoration(
               image: new DecorationImage(image: NetworkImage("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=605585087,1627229068&fm=26&gp=0.jpg") ,fit: BoxFit.cover),
               shape: BoxShape.circle,
               color: Colors.grey[300],
             ),
           ),
-          left: ScreenUtil().setWidth(38),
-          top: ScreenUtil().setHeight(76),
+          left: W(19),
+          top: H(30),
         ),
         Positioned(
-          left: ScreenUtil().setWidth(155),
-          top: ScreenUtil().setHeight(76),
+          left: W(70),
+          top: H(32),
           child: Text("沈阳市" ,style:TextStyle(fontSize:12, color: Colors.grey[300])),
           height: 20,
         ),
         Positioned(
-          left: ScreenUtil().setWidth(155),
-          top: ScreenUtil().setHeight(120),
+          left: W(70),
+          top: H(55),
           child: Text("奥体中心加油站 距您1.5KM" ,style:TextStyle(fontSize:11, color: Colors.grey[300])),
-          height: 20,
         ),
         Positioned(
           right: ScreenUtil().setWidth(48),
@@ -174,21 +175,21 @@ class _HomeControllerState extends State<HomeController> {
         ),
         Positioned(
           child: Image.asset("./images/Home/saveOilFee.png"),
-          left: ScreenUtil().setWidth(150),
-          top: ScreenUtil().setHeight(194),
+          left: W(50),
+          top: H(85),
           width: 114,
           height: 22,
         ),
         Positioned(
           child: Image.asset("./images/Home/earnMoney.png"),
-          right: ScreenUtil().setWidth(150),
-          top: ScreenUtil().setHeight(194),
+          right:W(50),
+          top: H(85),
           width: 114,
           height: 22,
         ),
         Positioned(
-          left: ScreenUtil().setWidth(170),
-          top: ScreenUtil().setHeight(254),
+          left: (screenWidth()/2-100)/2,
+          top: H(107),
           width: 100,
           height: 50,
           child: RichText(
@@ -203,8 +204,8 @@ class _HomeControllerState extends State<HomeController> {
          ),
         ),
         Positioned(
-          right: ScreenUtil().setWidth(170),
-          top: ScreenUtil().setHeight(254),
+          left: (screenWidth()/2-100)/2+screenWidth()/2,
+          top: H(107),
           width: 100,
           height: 50,
           child: RichText(
@@ -220,27 +221,27 @@ class _HomeControllerState extends State<HomeController> {
         ),
         Positioned(
           child: Image.asset("./images/Home/lastSave.png"),
-          left: ScreenUtil().setWidth(100),
-          top: ScreenUtil().setHeight(344),
+          left: W(35),
+          top: H(152),
           width: 100,
           height: 20,
         ),
         Positioned(
-          left: ScreenUtil().setWidth(380),
-          top: ScreenUtil().setHeight(349),
-          child: Text("+230.21",style: TextStyle(color: Colors.white),)
+          right: screenWidth()/2,
+          top: H(150+(20-15)/2),
+          height: H(15),
+          child: Text("+230.21",style: TextStyle(color: Colors.white)),
         ),
         Positioned(
           child: Image.asset("./images/Home/taskEarn.png"),
-          right: ScreenUtil().setWidth(230),
-          top: ScreenUtil().setHeight(344),
+          left: screenWidth()/2+W(20),
+          top: H(150),
           width: 100,
           height: 20,
         ),
         Positioned(
-          left:  300,
-          right: ScreenUtil().setWidth(60),
-          top: ScreenUtil().setHeight(349),
+          right: W(20),
+          top: H(150+(20-15)/2),
           child: Text("+230.21",style: TextStyle(color: Colors.white),)
         ),
       ],
@@ -265,11 +266,11 @@ class _HomeControllerState extends State<HomeController> {
     param['city'] = ''; 
     param['position'] = '';
     HttpUtil.instance.postData(homeInfo, param, RequestLisener(onSucessLisener: (BaseResponse rep){      
-      setState(() {
-      });
       record = HomeRecord.fromJson(rep.data);
       print('数组个数'+record.invites.length.toString());
       print('首页数据请求成功');
+      setState(() {
+      });
     }, onFailLisener: (BaseResponse rep){
       Fluttertoast.showToast(msg: rep.msg);
     }));
@@ -304,7 +305,7 @@ class _HomeControllerState extends State<HomeController> {
             child: _topBgView(),
           ),
           SliverFixedExtentList(
-            itemExtent: ScreenUtil().setHeight(265),
+            itemExtent: H(100),
             delegate: SliverChildBuilderDelegate((BuildContext context, int index){
               return _listItem(context, index);
             },

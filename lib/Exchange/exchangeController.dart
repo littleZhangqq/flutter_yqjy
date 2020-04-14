@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:flutter_yqjy/Base/HttpUtil.dart';
-import 'package:flutter_yqjy/Base/RequestSufix.dart';
-import 'package:flutter_yqjy/Base/Util.dart';
-import 'package:flutter_yqjy/Exchange/Model/ExchangeRecord.dart';
+import 'package:flutter_yqjy/Base/httpUtil.dart';
+import 'package:flutter_yqjy/Base/requestSufix.dart';
+import 'package:flutter_yqjy/Base/util.dart';
+import 'package:flutter_yqjy/Exchange/Model/exchangeRecord.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ExchangeController extends StatefulWidget {
