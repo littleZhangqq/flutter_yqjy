@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -80,7 +82,17 @@ class _LoginControllerState extends State<LoginController> {
             child: FlatButton(
               onPressed: (){
                 print('点击登录');
-                loginAction();      
+                if(checkInputValue() == false){
+                  return;
+                }
+                loginAction().then((token){
+                  print('token:'+token);
+                  return token;
+                }).then((value){
+                  return loadPersonInfo();
+                }).then((value) {
+                  print('登录后刷新各页面状态');
+                });
               },
               child: Text('登录',style: TextStyle(fontSize: W(15),color: Colors.white),),
               color: colorRGB(30, 95, 32),
@@ -202,10 +214,7 @@ class _LoginControllerState extends State<LoginController> {
     );
   }
 
-  void loginAction(){
-    if(checkInputValue() == false){
-      return;
-    }
+  Future loginAction(){
     Map param = Map();
     param['tel'] = userName;
     param['login_type'] = 'app';
@@ -214,24 +223,29 @@ class _LoginControllerState extends State<LoginController> {
     }else{
       param['code'] = verifyCode;
     }
+    String token;
+    final complete = Completer();
+    final future = complete.future;
     EasyLoading.show(status: '登录中');
     HttpUtil.instance.postData(loginTypePassWord ? loginWithPwd : loginWithCode, param, RequestLisener(onSucessLisener: (BaseResponse rep) async{
       EasyLoading.dismiss();
       EasyLoading.show(status: '登录中');
-      String token = rep.data['token'];
+      token = await rep.data['token'];
       SharedPreferences pref = await SharedPreferences.getInstance();
       pref.remove('token');
       saveValue(token, 'token');
-      loadPersonInfo();
-
+      complete.complete(token);
     }, onFailLisener: (BaseResponse rep){
       Fluttertoast.showToast(msg: rep.msg);
       EasyLoading.dismiss();
     }));
+    return future;
   }
 
   UserRecord person;
-  void loadPersonInfo(){
+  Future loadPersonInfo(){
+    final complete = Completer();
+    final future = complete.future;
     HttpUtil.instance.postData(personInfo, null, RequestLisener(onSucessLisener: (BaseResponse rep) async{
       UserRecord record = UserRecord.fromJson(rep.data);
       saveObject(record);
@@ -241,10 +255,13 @@ class _LoginControllerState extends State<LoginController> {
       });
       person = await getUserData();
       EasyLoading.dismiss();
+      print('登录成功');
+      complete.complete();
     },onFailLisener: (BaseResponse rep){
       Fluttertoast.showToast(msg: rep.msg,gravity: ToastGravity.CENTER);
       EasyLoading.dismiss();
     }));
+    return future;
   }
 
   bool checkInputValue(){
