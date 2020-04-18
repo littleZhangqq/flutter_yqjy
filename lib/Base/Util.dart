@@ -100,3 +100,72 @@ Future<UserRecord> getUserData() async{
   UserRecord record = UserRecord.fromJson(result);
   return record;
 }
+
+Future<bool> showAlert(BuildContext context,String title,String msg,List btnTitles){
+    return showDialog(
+      context: context,
+      builder: (context){
+        if(btnTitles.length == 1){
+          return AlertDialog(
+            title: Text(title),
+            content: Text(msg),
+            actions: <Widget>[
+                FlatButton(
+                onPressed: (){
+                  Navigator.of(context,).pop(btnTitles[0] == '取消' ? true : false);
+                }, 
+                child: Text(btnTitles[0])),
+              ],
+          );
+        }else{
+          return AlertDialog(
+            title: Text(title),
+            content: Text(msg),
+            actions: <Widget>[
+                FlatButton(
+                onPressed: (){
+                  Navigator.of(context).pop(btnTitles[0] == '取消' ? true : false);
+                },
+                child: Text(btnTitles[0])),
+              FlatButton(
+                onPressed: (){
+                  Navigator.of(context).pop(btnTitles[1] == '取消' ? true : false);
+                },
+                child: Text(btnTitles[1])),
+              ],
+          );
+        }
+      }
+    );
+  }
+
+  Future<bool> showView(BuildContext context,String title,List<Widget> list){
+    return showDialog(
+      context: context,
+      builder: (contecxt){
+        return SimpleDialog(
+          children: list,
+          title: Text(title),
+        );
+      }
+    );
+  }
+
+  Future<int> showBtmSheet(BuildContext context,List<String> titles){
+    return showModalBottomSheet(
+      context: context, 
+      builder: (contect){
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(titles[index]),
+                onTap: (){
+                  Navigator.of(context).pop(index);
+                },
+              );
+            },
+            itemCount: titles.length,
+          );
+        },
+      );
+  }

@@ -21,7 +21,11 @@ class _HomeControllerState extends State<HomeController> {
   Widget _listItem(BuildContext context,int index){
     return Container(
       child: FlatButton(
-        onPressed: ()=> print("object"),
+        onPressed: () async{
+          // showAlert(context, '标题', '这是弹窗的内容呵呵呵红红火火恍恍惚惚', ['取消','确定']);
+          int type = await showBtmSheet(context, ['百度地图','高德地图','腾讯地图']);
+          print(type);
+        },
         child: Stack(
           children: <Widget>[
             Positioned(
@@ -89,7 +93,7 @@ class _HomeControllerState extends State<HomeController> {
     return Stack(
       children: <Widget>[
         Container(
-          width: ScreenUtil.screenWidth,
+          width: screenWidth(),
           height: H(465),
           color: Colors.white,
         ),

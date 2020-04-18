@@ -92,6 +92,8 @@ class _LoginControllerState extends State<LoginController> {
                   return loadPersonInfo();
                 }).then((value) {
                   print('登录后刷新各页面状态');
+                }).whenComplete((){
+                  EasyLoading.dismiss();
                 });
               },
               child: Text('登录',style: TextStyle(fontSize: W(15),color: Colors.white),),
@@ -228,7 +230,6 @@ class _LoginControllerState extends State<LoginController> {
     final future = complete.future;
     EasyLoading.show(status: '登录中');
     HttpUtil.instance.postData(loginTypePassWord ? loginWithPwd : loginWithCode, param, RequestLisener(onSucessLisener: (BaseResponse rep) async{
-      EasyLoading.dismiss();
       EasyLoading.show(status: '登录中');
       token = await rep.data['token'];
       SharedPreferences pref = await SharedPreferences.getInstance();
@@ -238,6 +239,7 @@ class _LoginControllerState extends State<LoginController> {
     }, onFailLisener: (BaseResponse rep){
       Fluttertoast.showToast(msg: rep.msg);
       EasyLoading.dismiss();
+      complete.complete('fail');
     }));
     return future;
   }
@@ -254,7 +256,6 @@ class _LoginControllerState extends State<LoginController> {
         Navigator.pop(context);
       });
       person = await getUserData();
-      EasyLoading.dismiss();
       print('登录成功');
       complete.complete();
     },onFailLisener: (BaseResponse rep){
