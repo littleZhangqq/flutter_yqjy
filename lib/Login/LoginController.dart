@@ -17,6 +17,7 @@ class LoginController extends StatefulWidget {
 }
 
 class _LoginControllerState extends State<LoginController> {
+
   TapGestureRecognizer _tap;
   String userName;
   String userPassWord;
